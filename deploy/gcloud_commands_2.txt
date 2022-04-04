@@ -1,0 +1,28 @@
+SSH into the instance created:
+
+
+export instance_id=$(terraform output instance_id)
+export project_id=$(terraform output project_id)
+
+gcloud compute ssh ${instance_id} --project ${project_id}
+Note that SSH may not work unless your organization user also has access to the newly created project resources.
+
+Cleaning up
+First, permanently delete the resources created by Terraform:
+
+
+terraform destroy
+Next, delete the Terraform Admin project and all of its resources:
+
+
+gcloud projects delete ${TF_ADMIN}
+Finally, remove the organization level IAM permissions for the service account:
+
+
+gcloud organizations remove-iam-policy-binding ${TF_VAR_org_id} \
+  --member serviceAccount:terraform@${TF_ADMIN}.iam.gserviceaccount.com \
+  --role roles/resourcemanager.projectCreator
+
+gcloud organizations remove-iam-policy-binding ${TF_VAR_org_id} \
+  --member serviceAccount:terraform@${TF_ADMIN}.iam.gserviceaccount.com \
+  --role roles/billing.user
