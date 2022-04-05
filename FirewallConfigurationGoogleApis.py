@@ -2,15 +2,14 @@
 
 """Google publishes the complete list of
 IP ranges made available by Google to internet users
-in goog.json"""
-
-"""Google publishes a list of external IP address 
-ranges available for customers' Google Cloud resources in 
-cloud.json"""
-
-"""The IP addresses used by the default domains for Google APIs and
-services fit within the list of ranges computed 
-by taking away all ranges in cloud.json from those in goog.json """
+in goog.json
+Google publishes a list of external IP address
+ranges available for customers' Google Cloud resources in
+cloud.json
+The IP addresses used by the default domains for Google APIs and
+services fit within the list of ranges computed
+by taking away all ranges in cloud.json from those in goog.json
+"""
 
 import json
 import netaddr
