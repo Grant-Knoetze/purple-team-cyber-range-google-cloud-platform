@@ -1,32 +1,30 @@
-# Valentine's Day Updates:  2/14/22 
-PurpleCloud has changed!  Introducing a Terraform generator using python.  Instead of offering terraform templates that have to be manually edited, the starting point is a Python terraform generator.  The python scripts will create your own custom terraform files based on user input.  The terraform template files have been moved to archive.
-
 # Overview
-Identity lab supporting Azure AD and Active Directory enterprise deployment with SIEM in Azure.  Easily build your own Pentest / Red Team / Cyber Range in Azure cloud.  PurpleCloud was created as a platform for researching Azure Identity.  This repository contains two basic python scripts.  The first one is ```azure_ad.py``` and it is used to generate the terraform for a custom Azure AD range.  It uses a python library (faker) to generate as many Azure AD users as you desire, also creating AD Groups and AD Applications.  The second script is ```azure.py.```  This script is used to generate a more traditional infrastructure range.  It can create an Active Directory Domain Services range, generating as many AD users as you wish.  It also supports many other features such as Domain Join of Windows 10 systems, in addition to a SIEM instrumented with Sysmon.  These two scripts can be used for separate use cases independently and don't depend on each other.  Or you can use them together to build a Hybrid lab with AD Connect synchronizing identity from the on-premise AD into Azure AD.
+
+Identity lab supporting Google Cloud Platform (GCP), AD and Active Directory enterprise deployment with SIEM in GCP.  Easily build your own Pentest / Red Team / Cyber Range in GCP cloud.  Purple Team Cyber Range was created as a platform for researching GCP Identity.  This repository contains two basic python scripts.  The first one is `` GCP_ad.py``` and it is used to generate the terraform for a custom GCP AD range.  It uses a python library (faker) to generate as many GCP AD users as you desire, also creating AD Groups and AD Applications.  The second script is `` GCP.py.```  This script is used to generate a more traditional infrastructure range.  It can create an Active Directory Domain Services range, generating as many AD users as you wish.  It also supports many other features such as Domain Join of Windows 10 systems, in addition to a SIEM instrumented with Sysmon.  These two scripts can be used for separate use cases independently and don't depend on each other.  Or you can use them together to build a Hybrid lab with AD Connect synchronizing identity from the on-premise AD into GCP AD.
 
 ## Cost Analysis / Pricing Estimate
-As this tool spins up cloud resources, it will result in charges to your Azure subscription.  Efforts have been made to minimize the costs incurred and research the best options for most uses cases.  The best way to use this is reference the estimated cost below, check your Azure costs daily, and verify them against this information included below.  Be sure to tear down all resources when not using them.
+As this tool spins up cloud resources, it will result in charges to your GCP subscription.  Efforts have been made to minimize the costs incurred and research the best options for most uses cases.  The best way to use this is reference the estimated cost below, check your GCP costs daily, and verify them against this information included below.  Be sure to tear down all resources when not using them.
 
-There are other small costs associated with Azure cloud resources, but the most expensive resources by far are the Azure Virtual Machines.  When it comes to Compute VM resources, Azure is more expensive than AWS.  If you are looking to run this range in AWS, check out the sister project, BlueCloud:  https://github.com/iknowjason/BlueCloud
+There are other small costs associated with GCP cloud resources, but the most expensive resources by far are the GCP Virtual Machines.  When it comes to Compute VM resources, GCP is more expensive than AWS.  If you are looking to run this range in AWS, check out the sister project, BlueCloud:  https://github.com/iknowjason/BlueCloud
 
 By default, both the Windows 10 Pro and Domain Controller are using a ```Standard_A1``` instance size, which is the lowest cost hardware that I could find which will provide sufficient performance.  The Hunting ELK SIEM system requires a scaled up Linux instance size of ```Standard_DS3_v2```.  This is because it uses HELK install option four for data science capabilities.  
 
-Reference the Azure "Windows Virtual Machine Pricing" for the most up to date pricing:
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/windows/
+Reference the GCP "Windows Virtual Machine Pricing" for the most up to date pricing:
+https:/ GCP.microsoft.com/en-us/pricing/details/virtual-machines/windows/
 
-Reference the Azure "Linux Virtual Machines Pricing" for the most up to date pricing on the Linux VM:
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/
+Reference the GCP "Linux Virtual Machines Pricing" for the most up to date pricing on the Linux VM:
+https:/ GCP.microsoft.com/en-us/pricing/details/virtual-machines/linux/
 
 Here are the defaults I've researched for this range.  Each Windows and Linux VM should approximately accrue the following with range defaults:
-### Table:  Azure Accrued Costs per VM with Windows License Included
+### Table:  GCP Accrued Costs per VM with Windows License Included
 | System   |  Default Size  | Default Region |  1 day cost |  7 day cost | 30 day cost |
 |----------|----------------|----------------|-------------|-------------|-------------|
 | Win10Pro |  Standard_A1   |   US Central   |     $2.21   |   $15.17    |   $64.85    |
 |    DC    |  Standard_A1   |   US Central   |     $2.21   |   $15.17    |   $64.85    |
 |  HELK    | Standard_DS3_v2|   US Central   |     $7.08   |   $49.27    |   $211.01   |
 
-### Changing Default VM Instance Size in azure.py
-To change the default hardware instance sizes for each VM, modify the following variables in azure.py:
+### Changing Default VM Instance Size in GCP.py
+To change the default hardware instance sizes for each VM, modify the following variables in GCP.py:
 
 ```
 # The instance size for each system
@@ -36,42 +34,42 @@ size_helk  = "Standard_DS3_v2"
 ```
 
 
-# Generating an Azure AD lab using azure_ad.py
+# Generating an GCP AD lab using GCP_ad.py
 
-## Usage Example:  Generate a basic Azure AD lab
+## Usage Example:  Generate a basic GCP AD lab
 
-```$ python3 azure_ad.py --upn rtcfingroup.com```
+```$ python3 GCP_ad.py --upn rtcfingroup.com```
 
 **Description:** 
-This will generate an Azure AD range with a UPN suffix of ```rtcfingroup.com``` with 100 users. It will output three files.   The Azure AD password for all users will be automatically generated and output after terraform apply.
+This will generate an GCP AD range with a UPN suffix of ```rtcfingroup.com``` with 100 users. It will output three files.   The GCP AD password for all users will be automatically generated and output after terraform apply.
 
-* **azure_users.csv:** A csv including the Azure AD user's full name, username, and email address.
-* **azure_usernames.txt:**  A file including just the usernames.
-* **azure_emails.txt:** A file including just the email addresses.
+* * GCP_users.csv:** A csv including the GCP AD user's full name, username, and email address.
+* * GCP_usernames.txt:**  A file including just the usernames.
+* * GCP_emails.txt:** A file including just the email addresses.
 * **users.tf:** Terraform file that will build the users.
 
-## Usage Example:  Generate an Azure AD lab with 1,000 users 
-```$ python3 azure_ad.py --upn rtcfingroup.com --count 1000```
+## Usage Example:  Generate an GCP AD lab with 1,000 users 
+```$ python3 GCP_ad.py --upn rtcfingroup.com --count 1000```
 
 **Description:** 
-Same as above, except generate 1,000 users in Azure AD.  Running terraform apply will generate a random password shared by all users.  The password applied to all users will be displayed at the end of ```terraform apply```.  To display the passwor again, run ```terraform output```.  
+Same as above, except generate 1,000 users in GCP AD.  Running terraform apply will generate a random password shared by all users.  The password applied to all users will be displayed at the end of ```terraform apply```.  To display the passwor again, run ```terraform output```.  
 
 
-## Usage Example:  Generate a lab with Azure applications and groups
-```$ python3 azure_ad.py --upn rtcfingroup.com --count 500 --apps 3 --groups 5```
+## Usage Example:  Generate a lab with GCP applications and groups
+```$ python3 GCP_ad.py --upn rtcfingroup.com --count 500 --apps 3 --groups 5```
 
 **Description:**
-Same as above, except generate 500 users in Azure AD.  Create 3 Azure applications and 5 groups.  Automatically put the 500 users into separate groups. 
+Same as above, except generate 500 users in GCP AD.  Create 3 GCP applications and 5 groups.  Automatically put the 500 users into separate groups. 
 
-- **apps.tf:**  A terraform file with the Azure applications.
-- **groups.tf:**  A terraform file with the Azure groups.
+- **apps.tf:**  A terraform file with the GCP applications.
+- **groups.tf:**  A terraform file with the GCP groups.
 
 
-# Generating an Azure infrastructure lab using azure.py 
+# Generating an GCP infrastructure lab using gcp.py 
 
 ## Usage Example:  Generate a single Windows 10 Endpoint with Sysmon installed
 
-```$ python3 azure.py --endpoint 1```
+```$ python3 GCP.py --endpoint 1```
 
 **Description:**
 This will generate a single Windows 10 Endpoint and generate a random, unique password with a default local Administrator account named 'RTCAdmin'.  This generates four terraform files:
@@ -83,22 +81,22 @@ This will generate a single Windows 10 Endpoint and generate a random, unique pa
 
 ## Usage Example:  Build a Domain Controller with Forest and Users + Windows Domain Join 
 
-```$ python3 azure.py --domain_controller --ad_domain rtcfingroup.com --admin RTCAdmin --password MyPassword012345 --ad_users 500 --endpoints 2  --domain_join```
+```$ python3 GCP.py --domain_controller --ad_domain rtcfingroup.com --admin RTCAdmin --password MyPassword012345 --ad_users 500 --endpoints 2  --domain_join```
 
 **Description:**
 This will create a Domain Controller in dc.tf and install AD DS with forest name of rtcfingroup.com.  This will create a custom local administrator account and password with 500 domain users.  The domain users will be written to ad_users.csv and will have the password specified in --password.  Note that domain join is disabled by default for Windows 10 Pro but the ```domain_join``` parameter enables it for all Windows 10 Pro created.  This will also create two Windows 10 Pro terraform files (win10-1.tf, win10-2.tf) as well as a terraform file for the Domain Controller (dc.tf).
 
 ## Usage Example:  Build a Hunting ELK server and automatically export sysmon winlog beat logs 
 
-```$ python3 azure.py --helk --endpoint 1```
+```$ python3 GCP.py --helk --endpoint 1```
 
 **Description:**
 This will add a Hunting ELK server with one Windows 10 Endpoint.  The winlogbeat agent will be installed on Windows 10 Pro and the logs will be sent to the HELK server.  Velociraptor will be installed on the HELK server and the Velociraptor agent on Windows 10 Pro.  The endpoint will automatically register to the Velociraptor server running on HELK.  This will create a terraform file for the HELK server (helk.tf)
 
-## Full Usage and Other Details for Advanced Usage:  Azure.py
-```--resource_group <rg_name>```:  Name of the Azure resource group to automatically create  (Default:  PurpleCloud)
+## Full Usage and Other Details for Advanced Usage:  GCP.py
+```--resource_group <rg_name>```:  Name of the GCP resource group to automatically create  (Default:  PurpleCloud)
 
-```--location <location>```:  The Azure location to use (Default:  centralus)
+```--location <location>```:  The GCP location to use (Default:  centralus)
 
 ```--endpoints <num_of_endpoints>```:  Number of Windows 10 Professional systems to build (Default: 0)
 
@@ -119,7 +117,7 @@ This will add a Hunting ELK server with one Windows 10 Endpoint.  The winlogbeat
 ```--auto_logon```:  Automatically logon the domain user with their credentials upon system start (Default:  false)
 
 
-## Other Options to Manually Edit in azure.py
+## Other Options to Manually Edit in GCP.py
 
 **Windows 10 Pro configuration:**   The Windows 10 Pro default configuration can be adjusted to meet your needs.
 
@@ -164,9 +162,9 @@ default_ad_users = [
 
 **Other Details:**   
 
-* **Logging Passwords:** By default, all passwords are randomly generated.  So if you are not aware of this, it might be easy to lose track of a password.  For this reason we have added a logging feature that captures all passwords created.  The ```azure.py``` script will automatically log all output to a logfile called ```ranges.log```.  This is for the specific purpose of being able to track the ranges created and the passwords that are auto-generated for AD users and local Administrator accounts. 
+* **Logging Passwords:** By default, all passwords are randomly generated.  So if you are not aware of this, it might be easy to lose track of a password.  For this reason we have added a logging feature that captures all passwords created.  The ```gcp.py``` script will automatically log all output to a logfile called ```ranges.log```.  This is for the specific purpose of being able to track the ranges created and the passwords that are auto-generated for AD users and local Administrator accounts. 
 
-* **Azure Network Security Groups:**  By default, the azure.py script will try to auto-detect your public IP address using a request to http://ifconfig.me.  Your public IP address will be used to white list the Azure NSG source prefix setting.  You can over-ride this behavior by changing the ```override_whitelist``` variable to False.  By default it will then use the value set in ```whitelist_nsg```.  This is set to wide open ("*") and you can change this to a static value.
+* **GCP Network Security Groups:**  By default, the gcp.py script will try to auto-detect your public IP address using a request to http://ifconfig.me. 
 
 # Getting Started
 
@@ -176,7 +174,7 @@ default_ad_users = [
 
 * **Terraform:**  Tested version:  1.1.2
 
-* **Azure account with subscription:**  https://portal.azure.com
+* **GCP account with subscription:**  https://console.cloud.google.com
  
 ## Installing 
 
@@ -186,7 +184,7 @@ default_ad_users = [
 
 ```$ pip3 install faker```
 
-3. After you have a valid Azure subscription, create an Azure Service Principal with the correct permissions and add the four environment variables to your local shell using .env or .envrc:
+3. After you have a valid GCP subscription, create an GCP Service Principal with the correct permissions and add the four environment variables to your local shell using .env or .envrc:
 
 ```
 export ARM_SUBSCRIPTION_ID="YOUR_SERVICE_PRINCIPAL_VALUES"
@@ -195,24 +193,24 @@ export ARM_CLIENT_ID="YOUR_SERVICE_PRINCIPAL_VALUES"
 export ARM_CLIENT_SECRET="YOUR_SERVICE_PRINCIPAL_VALUES"
 ```
 
-Here are some references for creating a Service Principal to use with Azure.
+Here are some references for creating a Service Principal to use with GCP.
 
 1.  Creating a Service Principal
-https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
+https://registry.terraform.io/providers/hashicorp GCPrm/latest/docs/guides/service_principal_client_secret
 
-2.  Configuring a Service Principal to manage Azure Active Directory
-https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/guides/service_principal_configuration
+2.  Configuring a Service Principal to manage GCP Active Directory
+https://registry.terraform.io/providers/hashicorp GCPad/latest/docs/guides/service_principal_configuration
 
 3.  Microsoft docs:  Creating a Service Principal in Cloud Shell with Bash
-https://docs.microsoft.com/en-us/azure/developer/terraform/get-started-cloud-shell-bash?tabs=bash
+https://docs.microsoft.com/en-us GCP/developer/terraform/get-started-cloud-shell-bash?tabs=bash
 
-These are the settings that have worked best.  For Azure AD, set up the Service Principal as Global Administrator and/or the following Graph API permissions:
+These are the settings that have worked best.  For GCP AD, set up the Service Principal as Global Administrator and/or the following Graph API permissions:
 
 - Application.ReadWrite.All
 - User.ReadWrite.All
 - Group.ReadWrite.All
 
-For building the Azure infrastructure resources, assigning the Service Principal a role of ```Owner``` can help as well.
+For building the GCP infrastructure resources, assigning the Service Principal a role of ```Owner``` can help as well.
 
 4. Run terraform 
 ```
@@ -238,13 +236,5 @@ terraform destroy
 ![](images/pc2.png)
 
 # Use Cases
-* Research and pentest lab for Azure AD and Azure Domain Services
-* Security testing of Hybrid Join and Azure AD Joined devices
-* EDR Testing lab
-* PoC / Product Security Lab
-* Enterprise Active Directory lab with domain joined devices
-* Malware / reverse engineering to study artifacts against domain joined devices
-* SIEM / Threat Hunting / DFIR / Live Response lab with HELK + Velociraptor
-* Log aggregator architecture to forward logs to a cloud native SIEM (Azure Sentinel)
-* Data Science research with HELK server, Jupyter notebooks
-* Detection Engineering research with Mordor
+* Research and pentest lab for GCP AD and GCP Domain Services
+
