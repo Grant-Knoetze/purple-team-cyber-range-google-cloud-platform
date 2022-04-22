@@ -7,7 +7,7 @@ As this tool spins up cloud resources, it will result in charges to your GCP sub
 
 There are other small costs associated with GCP cloud resources, but the most expensive resources by far are the GCP Virtual Machines.  When it comes to Compute VM resources, GCP is more expensive than AWS.  If you are looking to run this range in AWS, check out the sister project, BlueCloud:  https://github.com/iknowjason/BlueCloud
 
-By default, both the Windows 10 Pro and Domain Controller are using a ```Standard_A1``` instance size, which is the lowest cost hardware that I could find which will provide sufficient performance.  The Hunting ELK SIEM system requires a scaled up Linux instance size of ```Standard_DS3_v2```.  This is because it uses HELK install option four for data science capabilities.  
+By default, both the Windows 10 Pro and Domain Controller are using a ```Default    ``` instance size, which is the lowest cost hardware that I could find which will provide sufficient performance.  The Hunting ELK SIEM system requires a scaled up Linux instance size of ```Standard_DS3_v2```.  This is because it uses HELK install option four for data science capabilities.  
 
 Reference the GCP "Windows Virtual Machine Pricing" for the most up to date pricing:
 https:/ GCP.microsoft.com/en-us/pricing/details/virtual-machines/windows/
@@ -19,18 +19,18 @@ Here are the defaults I've researched for this range.  Each Windows and Linux VM
 ### Table:  GCP Accrued Costs per VM with Windows License Included
 | System   |  Default Size  | Default Region |  1 day cost |  7 day cost | 30 day cost |
 |----------|----------------|----------------|-------------|-------------|-------------|
-| Win10Pro |  Standard_A1   |   US Central   |     $2.21   |   $15.17    |   $64.85    |
-|    DC    |  Standard_A1   |   US Central   |     $2.21   |   $15.17    |   $64.85    |
-|  HELK    | Standard_DS3_v2|   US Central   |     $7.08   |   $49.27    |   $211.01   |
+| Win10Pro |  Default       |   Default   |     $0.00   |   $0.00   |   $0.00    |
+|    DC    |  Default       |   Default   |     $0.00   |   $0.00   |   $0.00    |
+|  HELK    |  Default       |   Default   |     $0.00   |   $0.00   |   $0.00    |
 
 ### Changing Default VM Instance Size in GCP.py
 To change the default hardware instance sizes for each VM, modify the following variables in GCP.py:
 
 ```
 # The instance size for each system
-size_win10 = "Standard_A1"
-size_dc    = "Standard_A1"
-size_helk  = "Standard_DS3_v2"
+size_win10 = "Default    "
+size_dc    = "Default    "
+size_helk  = "Default"
 ```
 
 
